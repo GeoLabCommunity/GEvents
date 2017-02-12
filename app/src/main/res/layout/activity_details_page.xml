@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|top"
                 android:layout_margin="5dp"
-                android:background="@drawable/circle"
+                android:background="@drawable/back_btn_circle_bg"
                 app:srcCompat="@drawable/ic_close_drawer"
                 tools:ignore="VectorDrawableCompat" />
         </FrameLayout>
@@ -54,7 +54,7 @@
             <android.support.v7.widget.AppCompatImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/date_bg" />
+                android:background="@drawable/action_btn_circle_bg" />
         </LinearLayout>
 
         <RelativeLayout
@@ -63,31 +63,27 @@
             android:padding="8dp">
 
             <FrameLayout
-                android:id="@+id/event_date"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:id="@+id/event_date_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/date_bg">
+                android:background="@drawable/action_btn_circle_bg">
 
-                <TextView
+                <ge.edu.geolab.gevents.ui.widgets.DateView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="26\n თებ"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:id="@+id/event_date"/>
             </FrameLayout>
 
             <TextView
                 android:id="@+id/event_start_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/event_date"
+                android:layout_alignTop="@+id/event_date_layout"
                 android:layout_marginRight="8dp"
-                android:layout_toRightOf="@+id/event_date"
+                android:layout_toRightOf="@+id/event_date_layout"
                 android:background="@drawable/round_bg"
                 android:gravity="center"
                 android:paddingBottom="5dp"
@@ -96,13 +92,13 @@
                 android:paddingTop="5dp"
                 android:text="13:00 - 20:00"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/attending_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/event_date"
+                android:layout_alignTop="@+id/event_date_layout"
                 android:layout_marginRight="8dp"
                 android:layout_toRightOf="@+id/event_start_end_time"
                 android:background="@drawable/round_bg"
@@ -113,15 +109,15 @@
                 android:paddingTop="5dp"
                 android:text="100"
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/event_organizer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/event_date"
+                android:layout_alignBottom="@+id/event_date_layout"
                 android:layout_marginRight="8dp"
-                android:layout_toRightOf="@+id/event_date"
+                android:layout_toRightOf="@+id/event_date_layout"
                 android:background="@drawable/round_bg"
                 android:gravity="center"
                 android:paddingBottom="5dp"
@@ -130,7 +126,7 @@
                 android:paddingTop="5dp"
                 android:text="Geolab * ჯეოლაბი "
                 android:textColor="@android:color/white"
-                android:textSize="18sp" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
 

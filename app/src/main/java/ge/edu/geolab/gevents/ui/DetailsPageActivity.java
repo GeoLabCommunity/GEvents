@@ -7,7 +7,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
+import java.util.Date;
+
 import ge.edu.geolab.gevents.R;
+import ge.edu.geolab.gevents.ui.widgets.DateView;
 
 public class DetailsPageActivity extends AppCompatActivity implements OnMapReadyCallback{
 
@@ -20,6 +23,9 @@ public class DetailsPageActivity extends AppCompatActivity implements OnMapReady
 
         map = (MapFragment)getFragmentManager().findFragmentById(R.id.map);
         map.getMapAsync(this);
+
+        DateView dateView = (DateView) findViewById(R.id.event_date);
+        dateView.setDate(new Date());
     }
 
     @Override

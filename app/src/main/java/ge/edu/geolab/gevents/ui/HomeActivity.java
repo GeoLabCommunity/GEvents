@@ -8,6 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ge.edu.geolab.gevents.R;
+import ge.edu.geolab.gevents.adapter.EventsFeedAdapter;
 import ge.edu.geolab.gevents.helper.AppFont;
 import ge.edu.geolab.gevents.helper.font.TypefaceHelper;
 import ge.edu.geolab.gevents.model.EventCategory;
@@ -23,20 +27,19 @@ import ge.edu.geolab.gevents.model.EventModel;
 import ge.edu.geolab.gevents.presenter.MainPresenter;
 import ge.edu.geolab.gevents.presenter.impl.MainPresenterImpl;
 import ge.edu.geolab.gevents.ui.fragment.DrawerActionListener;
+import ge.edu.geolab.gevents.ui.widgets.RecyclerItemHorizontalDividerDecorator;
 import ge.edu.geolab.gevents.view.MainView;
 
 public class HomeActivity extends AppCompatActivity implements DrawerActionListener, MainView {
 
     private DrawerLayout mLeftDrawer;
     private MainPresenter mMainPresenter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        Intent intent = new Intent(this, DetailsPageActivity.class);
-        startActivity(intent);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,6 +64,12 @@ public class HomeActivity extends AppCompatActivity implements DrawerActionListe
                 mLeftDrawer.openDrawer(Gravity.LEFT);
             }
         });
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.events_feed_recycler);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new RecyclerItemHorizontalDividerDecorator(50));
+        mRecyclerView.setAdapter(new EventsFeedAdapter(this));
+
 
         initTypefaces();
         setTitle(R.string.app_name);
@@ -102,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements DrawerActionListe
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+            closeDrawer();
         } else {
             super.onBackPressed();
         }

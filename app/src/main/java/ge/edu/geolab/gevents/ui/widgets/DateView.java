@@ -24,18 +24,18 @@ import ge.edu.geolab.gevents.R;
 public class DateView extends FrameLayout {
 
     private static final String[] MONTH_NAMES_GEO = new String[]{
-            "იანვარი",
-            "თებერვალი",
-            "მარტი",
-            "აპრილი",
-            "მაისი",
-            "ივნისი",
-            "ივლისი",
-            "აგვისტო",
-            "სექტემბერი",
-            "ოქტომბერი",
-            "ნოემბერი",
-            "დეკემბერი"
+            "იან",
+            "თებ",
+            "მარ",
+            "აპრ",
+            "მაი",
+            "ივნ",
+            "ივლ",
+            "აგვ",
+            "სექ",
+            "ოქტ",
+            "ნოე",
+            "დეკ"
     };
 
     private static Calendar sCalendar;
@@ -63,16 +63,10 @@ public class DateView extends FrameLayout {
         mDayView = (TextView) findViewById(R.id.day);
         mMonthView = (TextView) findViewById(R.id.month);
 
-        final Drawable drawable1 = ContextCompat.getDrawable(context, R.drawable.dateview_cirle_bg);
-        mDrawable = new ClipDrawable(drawable1, Gravity.BOTTOM, ClipDrawable.VERTICAL);
-        final Drawable drawable2 = drawable1.getConstantState().newDrawable();
-        drawable2.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-
-        setBackground(new LayerDrawable(new Drawable[]{drawable2, mDrawable}));
     }
 
     private String getMonth(int month) {
-        return MONTH_NAMES_GEO[month].substring(0, 3);
+        return MONTH_NAMES_GEO[month];
     }
 
     public void setDate(long time) {
@@ -99,8 +93,5 @@ public class DateView extends FrameLayout {
             int dimension = Math.max(width, height);
             setMeasuredDimension(dimension, dimension);
         }
-
-        int level = (int) (10_000 * (0.5 * (mDayView.getTop() + mMonthView.getBottom()) / getBottom()));
-        mDrawable.setLevel(level);
     }
 }

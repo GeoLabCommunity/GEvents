@@ -8,21 +8,21 @@ import com.google.gson.annotations.SerializedName;
 public class PlaceModel {
 
     @SerializedName("name")
-    String name;
+    public String name;
 
     @SerializedName("city")
-    String city;
+    public String city;
 
     @SerializedName("country")
-    String country;
+    public String country;
 
     @SerializedName("lattitude")
-    String lattitude;
+    public float lattitude;
 
     @SerializedName("longitude")
-    String longitude;
+    public float longitude;
 
     @SerializedName("street")
-    String street;
+    public String street;
 
 }

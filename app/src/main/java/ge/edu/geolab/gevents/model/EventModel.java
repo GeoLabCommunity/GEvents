@@ -2,9 +2,13 @@ package ge.edu.geolab.gevents.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EventModel {
+public class EventModel implements Serializable {
+
+    public static String KEY = "event_model";
+
     @SerializedName("id")
     public String id;
 
@@ -34,6 +38,12 @@ public class EventModel {
 
     @SerializedName("place")
     public PlaceModel place;
+
+    @SerializedName("interested_count")
+    public int interestedCount;
+
+    @SerializedName("attending_count")
+    public int attendingCount;
 }
 
 

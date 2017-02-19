@@ -67,7 +67,7 @@ public class HomeActivity extends AppCompatActivity implements DrawerActionListe
 
         mRecyclerView = (RecyclerView) findViewById(R.id.events_feed_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new RecyclerItemHorizontalDividerDecorator(50));
+        //mRecyclerView.addItemDecoration(new RecyclerItemHorizontalDividerDecorator(50));
         mRecyclerView.setAdapter(new EventsFeedAdapter(this));
 
 

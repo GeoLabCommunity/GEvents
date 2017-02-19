@@ -6,29 +6,34 @@ import java.util.ArrayList;
 
 public class EventModel {
     @SerializedName("id")
-    String id;
+    public String id;
 
     @SerializedName("name")
-    String name;
+    public String name;
 
-    @SerializedName("desc")
-    String description;
+    @SerializedName("description")
+    public String description;
 
-    @SerializedName("start_date")
-    long startDate;
+    @SerializedName("start_time")
+    public long startTime;
 
-    @SerializedName("end_date")
-    long endDate;
+    @SerializedName("end_time")
+    public long endTime;
 
     @SerializedName("organizer")
-    String organizer;
+    public String organizer;
 
     @SerializedName("category")
-    String category;
-
-    @SerializedName("location")
-    ArrayList<Double> location;
+    public String category;
 
     @SerializedName("cover")
-    String coverImgUrl;
+    public String coverImgUrl;
+
+    @SerializedName("ticket_url")
+    public String ticketUrl;
+
+    @SerializedName("place")
+    public PlaceModel place;
 }
+
+

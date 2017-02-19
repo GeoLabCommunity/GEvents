@@ -37,11 +37,10 @@
                              android:padding="16dp">
 
                     <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/ic_open_drawer"
+                        app:srcCompat="@drawable/ic_menu"
                         tools:ignore="VectorDrawableCompat"/>
                 </FrameLayout>
 
@@ -83,8 +82,8 @@
 
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/search"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/ic_search"

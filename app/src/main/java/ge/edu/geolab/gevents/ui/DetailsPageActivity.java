@@ -11,6 +11,8 @@ import android.widget.Button;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Date;
 
@@ -48,6 +50,8 @@ public class DetailsPageActivity extends AppCompatActivity implements OnMapReady
 
         @Override
         public void onMapReady (GoogleMap googleMap){
-
+            googleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(10, 10))
+                    .title("Hello world"));
         }
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class EventModel implements Serializable {
 
-    public static String KEY = "event_model";
+    public static final String KEY = "event_model";
 
     @SerializedName("id")
     public String id;

@@ -7,8 +7,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,21 +14,24 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 
 import ge.edu.geolab.gevents.R;
 import ge.edu.geolab.gevents.adapter.EventsFeedAdapter;
+import ge.edu.geolab.gevents.event.EventBusProvider;
 import ge.edu.geolab.gevents.helper.AppFont;
 import ge.edu.geolab.gevents.helper.font.TypefaceHelper;
 import ge.edu.geolab.gevents.model.EventCategory;
 import ge.edu.geolab.gevents.model.EventModel;
 import ge.edu.geolab.gevents.presenter.MainPresenter;
 import ge.edu.geolab.gevents.presenter.impl.MainPresenterImpl;
+import ge.edu.geolab.gevents.ui.base.SlidingActivity;
 import ge.edu.geolab.gevents.ui.fragment.DrawerActionListener;
-import ge.edu.geolab.gevents.ui.widgets.RecyclerItemHorizontalDividerDecorator;
 import ge.edu.geolab.gevents.view.MainView;
 
-public class HomeActivity extends AppCompatActivity implements DrawerActionListener, MainView {
+public class HomeActivity extends SlidingActivity implements DrawerActionListener, MainView {
 
     private DrawerLayout mLeftDrawer;
     private MainPresenter mMainPresenter;
@@ -65,17 +66,25 @@ public class HomeActivity extends AppCompatActivity implements DrawerActionListe
             }
         });
 
+        findViewById(R.id.search_event_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
         mRecyclerView = (RecyclerView) findViewById(R.id.events_feed_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //mRecyclerView.addItemDecoration(new RecyclerItemHorizontalDividerDecorator(50));
         mRecyclerView.setAdapter(new EventsFeedAdapter(this));
-
 
         initTypefaces();
         setTitle(R.string.app_name);
 
         mMainPresenter = new MainPresenterImpl(this);
         mMainPresenter.onCreate();
+
+        showLoader();
     }
 
     private void initTypefaces() {
@@ -103,8 +112,26 @@ public class HomeActivity extends AppCompatActivity implements DrawerActionListe
     @Override
     protected void onDestroy() {
         mMainPresenter.onDestroy();
-
         super.onDestroy();
+    }
+
+    @Subscribe
+    private void onEventSelected(EventModel event) {
+        final Intent intent = new Intent(this, DetailsPageActivity.class);
+        intent.putExtra(EventModel.KEY, event);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        EventBusProvider.getInstance().register(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        EventBusProvider.getInstance().unregister(this);
     }
 
     @Override
@@ -117,6 +144,11 @@ public class HomeActivity extends AppCompatActivity implements DrawerActionListe
         }
     }
 
+    @Override
+    protected void onLeaveThisActivity() {
+
+    }
+
     private void closeDrawer() {
         mLeftDrawer.closeDrawer(GravityCompat.START);
     }
@@ -126,7 +158,11 @@ public class HomeActivity extends AppCompatActivity implements DrawerActionListe
         closeDrawer();
         setSubtitle(EventCategory.getNameFromId(id));
 
-        // mMainPresenter.loadFeedEvents();
+        //mMainPresenter.loadFeedEvents();
+    }
+
+    private EventsFeedAdapter getAdapter() {
+        return (EventsFeedAdapter) mRecyclerView.getAdapter();
     }
 
     @Override
@@ -136,17 +172,17 @@ public class HomeActivity extends AppCompatActivity implements DrawerActionListe
 
     @Override
     public void showLoader() {
-
+        findViewById(R.id.loader).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoader() {
-
+        findViewById(R.id.loader).setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void setFeedItems(List<EventModel> items) {
-
+        getAdapter().setItems(items);
     }
 
     @Override

@@ -37,21 +37,21 @@ public class DetailsPageActivity extends AppCompatActivity implements OnMapReady
     private MapFragment mapFragment;
 
     @BindView(R.id.details_page_event_cover_img)
-    private AppCompatImageView mCoverImageView;
+    AppCompatImageView mCoverImageView;
     @BindView(R.id.details_page_event_title)
-    private TextView mTitleView;
+    TextView mTitleView;
     @BindView(R.id.details_page_description)
-    private TextView mDescriptionView;
+    TextView mDescriptionView;
     @BindView(R.id.details_page_event_date_view)
-    private DateView mDateView;
+    DateView mDateView;
     @BindView(R.id.details_page_event_organizer)
-    private TextView mOrganizerView;
+    TextView mOrganizerView;
     @BindView(R.id.details_page_attending_count)
-    private TextView mAttendingCountView;
+    TextView mAttendingCountView;
     @BindView(R.id.details_page_start_end_time)
-    private TextView mStartEndTimeView;
+    TextView mStartEndTimeView;
     @BindView(R.id.details_page_event_address)
-    private TextView mAddressView;
+    TextView mAddressView;
 
     private DetailsPresenter mDetailsPresenter;
     private LatLng mLocation;

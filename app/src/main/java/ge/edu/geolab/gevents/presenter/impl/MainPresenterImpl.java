@@ -32,6 +32,7 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
 
     @Override
     public void onDestroy() {
+        mView = null;
         VolleyManager.getInstance().cancelAllRequests();
     }
 
@@ -43,19 +44,25 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
 
             @Override
             public void onNothingFound() {
-                mView.hideLoader();
-                mView.setFeedItems(Collections.<EventModel>emptyList());
+                if (mView != null) {
+                    mView.hideLoader();
+                    mView.setFeedItems(Collections.<EventModel>emptyList());
+                }
             }
 
             @Override
             public void onLoaded(List<EventModel> data) {
-                mView.hideLoader();
-                mView.setFeedItems(data);
+                if (mView != null) {
+                    mView.hideLoader();
+                    mView.setFeedItems(data);
+                }
             }
 
             @Override
             public void onLoadFailed() {
-                mView.hideLoader();
+                if (mView != null) {
+                    mView.hideLoader();
+                }
             }
         });
     }

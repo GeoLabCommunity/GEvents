@@ -28,9 +28,9 @@ public class LocalDrawerInteractorImpl implements DrawerInteractor {
 
         for (EventCategory cat : EventCategory.values()) {
             final DrawerItem item = DrawerItem.create(
-                    cat.id,
-                    cat.name,
-                    ContextCompat.getDrawable(mContext, cat.iconResId)
+                    cat.getId(),
+                    cat.getName(),
+                    ContextCompat.getDrawable(mContext, cat.getIconResId())
             );
             items.add(item);
         }

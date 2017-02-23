@@ -60,7 +60,6 @@ public class CategoryListFragment extends ListFragment implements DrawerView {
         listView.addHeaderView(new View(mContext));
         listView.addFooterView(new View(mContext));
         listView.setDivider(new ColorDrawable(Color.parseColor("#2b2d44")));
-        listView.setBackgroundColor(Color.parseColor("#33334b"));
         listView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         listView.setDividerHeight(0);
         listView.setVerticalScrollBarEnabled(false);
@@ -144,9 +143,7 @@ public class CategoryListFragment extends ListFragment implements DrawerView {
                     case android.R.id.text1:
                         if (view instanceof TextView) {
                             ((TextView) view).setText(String.valueOf(data));
-
                             TypefaceHelper.override(view, AppFont.BPG_NINO_MTAVRULI_NORMAL);
-
                             return true;
                         }
                         break;

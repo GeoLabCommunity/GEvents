@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ge.edu.geolab.gevents.R;
+import ge.edu.geolab.gevents.event.EventBusProvider;
 import ge.edu.geolab.gevents.model.EventModel;
 import ge.edu.geolab.gevents.ui.widgets.DateView;
 
@@ -26,47 +27,51 @@ import ge.edu.geolab.gevents.ui.widgets.DateView;
 public class EventsFeedAdapter extends RecyclerView.Adapter<EventsFeedAdapter.EventViewHolder> {
 
     private LayoutInflater mLayoutInflater;
-    private List<EventModel> mEvents = new ArrayList<>();
+    private List<EventModel> mItems = new ArrayList<>();
     private Context mContext;
-
 
     public EventsFeedAdapter(Context context) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
-    public void setEvents(List<EventModel> events) {
-        mEvents.clear();
-        mEvents = events;
+    public void setItems(List<EventModel> items) {
+        mItems.clear();
+        mItems = items;
+        notifyDataSetChanged();
+    }
+
+    public void addItems(List<EventModel> items) {
+        mItems.addAll(items);
         notifyDataSetChanged();
     }
 
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View view = mLayoutInflater.inflate(R.layout.event_feed_item , parent, false);
+        final View view = mLayoutInflater.inflate(R.layout.event_feed_item, parent, false);
         return new EventViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
-        final EventModel model = mEvents.get(position);
+        final EventModel model = mItems.get(position);
         Picasso.with(mContext)
                 .load(model.coverImgUrl)
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(holder.coverView);
-
         holder.titleView.setText(model.name);
         holder.organizer.setText(model.organizer);
-        // date dasamatebeli!!!!!!!!!!!!!!!!!!!!!!!!
+        holder.dateView.setDate(model.startTime);
+        holder.setModel(model);
     }
 
     @Override
     public int getItemCount() {
-        return mEvents.size();
+        return mItems.size();
     }
 
-    static class EventViewHolder extends RecyclerView.ViewHolder {
+    static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.event_cover_img)
         AppCompatImageView coverView;
         @BindView(R.id.event_title)
@@ -75,10 +80,22 @@ public class EventsFeedAdapter extends RecyclerView.Adapter<EventsFeedAdapter.Ev
         TextView organizer;
         @BindView(R.id.event_date_view)
         DateView dateView;
-        public EventViewHolder(View itemView) {
+
+        EventViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        private EventModel mModel;
+
+        void setModel(EventModel model) {
+            this.mModel = model;
+        }
+
+        @Override
+        public void onClick(View view) {
+            EventBusProvider.getInstance().post(mModel);
         }
     }
-
 }

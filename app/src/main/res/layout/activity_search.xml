@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_alignParentTop="true"
+    android:background="?attr/colorPrimary"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    tools:context="ge.edu.geolab.gevents.ui.SearchActivity">
+
+    <FrameLayout
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:padding="8dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_arrow_back"
+            tools:ignore="VectorDrawableCompat"/>
+    </FrameLayout>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/search_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/search_input_bg"
+        android:hint="ძებნა"
+        android:imeOptions="actionSearch"
+        android:lines="1"
+        android:maxLines="1"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textColorHint="#2dffffff"
+        android:textSize="16sp"/>
+
+    <FrameLayout
+        android:id="@+id/search_event_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:padding="8dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_search"
+            tools:ignore="VectorDrawableCompat"/>
+    </FrameLayout>
+
+</LinearLayout>

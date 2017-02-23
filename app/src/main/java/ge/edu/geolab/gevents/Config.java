@@ -5,8 +5,11 @@ package ge.edu.geolab.gevents;
  */
 
 public final class Config {
+
     public interface API {
         String BASE_URL = "";
         String EVENTS_REQUEST_URL = "";
     }
+
+    public static final int LOAD_ITEM_COUNT_DEFAULT = 10;
 }

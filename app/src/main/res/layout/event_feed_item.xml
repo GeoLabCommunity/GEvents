@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
-            app:srcCompat="@drawable/cover_ex" />
+            app:srcCompat="@drawable/cover_ex"/>
 
         <TextView
             android:id="@+id/event_title"
@@ -26,9 +26,12 @@
             android:layout_below="@+id/event_cover_img"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/event_date_view"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:text="Droid Up 4.0"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/event_organizer_title"
@@ -38,15 +41,16 @@
             android:layout_below="@+id/event_title"
             android:layout_margin="5dp"
             android:text="Geolab"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
         <ge.edu.geolab.gevents.ui.widgets.DateView
+            android:id="@+id/event_date_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/event_date_view"
-            android:layout_below="@+id/event_cover_img"
             android:layout_alignParentRight="true"
-            android:layout_margin="1dp"/>
+            android:layout_below="@+id/event_cover_img"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"/>
 
     </RelativeLayout>
 

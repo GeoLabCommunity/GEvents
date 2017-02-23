@@ -84,7 +84,7 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
         mMainPresenter = new MainPresenterImpl(this);
         mMainPresenter.onCreate();
 
-        showLoader();
+        mMainPresenter.loadFeedEvents();
     }
 
     private void initTypefaces() {
@@ -116,7 +116,7 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
     }
 
     @Subscribe
-    private void onEventSelected(EventModel event) {
+    public void onEventSelected(EventModel event) {
         final Intent intent = new Intent(this, DetailsPageActivity.class);
         intent.putExtra(EventModel.KEY, event);
         startActivity(intent);
@@ -125,13 +125,13 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
     @Override
     protected void onPause() {
         super.onPause();
-        EventBusProvider.getInstance().register(this);
+        EventBusProvider.getInstance().unregister(this);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        EventBusProvider.getInstance().unregister(this);
+        EventBusProvider.getInstance().register(this);
     }
 
     @Override
@@ -157,8 +157,6 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
     public void onDrawerItemSelected(int id) {
         closeDrawer();
         setSubtitle(EventCategory.getNameFromId(id));
-
-        //mMainPresenter.loadFeedEvents();
     }
 
     private EventsFeedAdapter getAdapter() {

@@ -25,4 +25,6 @@ public class PlaceModel {
     @SerializedName("street")
     public String street;
 
+    @SerializedName("placeId")
+    public String placeId;
 }

@@ -9,7 +9,7 @@ public class EventModel implements Serializable {
 
     public static final String KEY = "event_model";
 
-    @SerializedName("id")
+    @SerializedName("eventId")
     public String id;
 
     @SerializedName("name")
@@ -18,11 +18,11 @@ public class EventModel implements Serializable {
     @SerializedName("description")
     public String description;
 
-    @SerializedName("start_time")
-    public long startTime;
+    @SerializedName("startTime")
+    public String startTime;
 
-    @SerializedName("end_time")
-    public long endTime;
+    @SerializedName("endTime")
+    public String endTime;
 
     @SerializedName("organizer")
     public String organizer;
@@ -30,13 +30,13 @@ public class EventModel implements Serializable {
     @SerializedName("category")
     public String category;
 
-    @SerializedName("cover")
+    @SerializedName("coverImgUrl")
     public String coverImgUrl;
 
-    @SerializedName("ticket_url")
+    @SerializedName("TicketUrl")
     public String ticketUrl;
 
-    @SerializedName("place")
+    @SerializedName("Place")
     public PlaceModel place;
 
     @SerializedName("interested_count")

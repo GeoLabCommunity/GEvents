@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ge.edu.geolab.gevent.utils.DateUtils;
 import ge.edu.geolab.gevents.R;
 import ge.edu.geolab.gevents.event.EventBusProvider;
 import ge.edu.geolab.gevents.model.EventModel;
@@ -57,12 +58,11 @@ public class EventsFeedAdapter extends RecyclerView.Adapter<EventsFeedAdapter.Ev
         final EventModel model = mItems.get(position);
         Picasso.with(mContext)
                 .load(model.coverImgUrl)
-                .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(holder.coverView);
         holder.titleView.setText(model.name);
         holder.organizer.setText(model.organizer);
-        holder.dateView.setDate(model.startTime);
+        holder.dateView.setDate(DateUtils.getTime(model.startTime));
         holder.setModel(model);
     }
 

@@ -45,7 +45,6 @@ public class DateView extends FrameLayout {
     }
 
     private TextView mDayView, mMonthView;
-    private Drawable mDrawable;
 
     public DateView(Context context) {
         this(context, null);
@@ -83,15 +82,14 @@ public class DateView extends FrameLayout {
         mMonthView.setText(getMonth(month));
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int width = getMeasuredWidth();
-        int height = getMeasuredHeight();
-        if (width != height) {
-            int dimension = Math.max(width, height);
-            setMeasuredDimension(dimension, dimension);
-        }
-    }
+//    @Override
+//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        int width = getMeasuredWidth();
+//        int height = getMeasuredHeight();
+//        if (width != height) {
+//            int dimension = Math.max(width, height);
+//            setMeasuredDimension(dimension, dimension);
+//        }
+//    }
 }

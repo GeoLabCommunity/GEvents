@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4b626d</color>
+    <color name="colorPrimary">#3d5059</color>
+
+    <color name="colorPrimary_transparent">#b93d5059</color>
+
+    <!--<color name="colorPrimary">#4b626d</color>-->
+
     <color name="colorPrimaryDark">#37474f</color>
     <color name="colorAccent">#f4f4f4</color>
+
+    <color name="feed_item_text">#cf28353b</color>
 </resources>

@@ -5,9 +5,9 @@ import com.google.android.gms.maps.model.LatLng;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ge.edu.geolab.gevent.utils.DateUtils;
 import ge.edu.geolab.gevents.interactor.DetailsInteractor;
 import ge.edu.geolab.gevents.model.EventModel;
+import ge.edu.geolab.gevents.utils.DateUtils;
 
 /**
  * Created by Vazha on 19.02.2017.
@@ -31,7 +31,7 @@ public class DetailsInteractorImpl implements DetailsInteractor {
 
     @Override
     public LatLng getLocation(EventModel model) {
-        return new LatLng(model.place.lattitude, model.place.longitude);
+        return new LatLng(model.place.latitude, model.place.longitude);
     }
 
     @Override
@@ -52,7 +52,11 @@ public class DetailsInteractorImpl implements DetailsInteractor {
 
     @Override
     public String getStartEndTime(EventModel model) {
-        return getTime(DateUtils.getTime(model.startTime)) + " - " + getTime(DateUtils.getTime(model.endTime));
+        String time = getTime(DateUtils.getTime(model.startTime));
+        if (model.endTime != null && !model.endTime.isEmpty()) {
+            time += " - " + getTime(DateUtils.getTime(model.endTime));
+        }
+        return time;
     }
 
     @Override

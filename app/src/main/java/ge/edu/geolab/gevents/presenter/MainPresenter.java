@@ -9,5 +9,5 @@ public interface MainPresenter {
 
     void onDestroy();
 
-    void loadFeedEvents();
+    void loadFeedEvents(int page);
 }

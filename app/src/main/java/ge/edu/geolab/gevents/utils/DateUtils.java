@@ -1,4 +1,4 @@
-package ge.edu.geolab.gevent.utils;
+package ge.edu.geolab.gevents.utils;
 
 
 import java.text.ParseException;
@@ -15,7 +15,7 @@ public class DateUtils {
     public static long getTime(String date) {
         try {
             return FORMATTER.parse(date).getTime();
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;

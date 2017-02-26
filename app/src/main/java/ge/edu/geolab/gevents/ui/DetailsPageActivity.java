@@ -1,7 +1,7 @@
 package ge.edu.geolab.gevents.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,10 +21,12 @@ import ge.edu.geolab.gevents.R;
 import ge.edu.geolab.gevents.model.EventModel;
 import ge.edu.geolab.gevents.presenter.DetailsPresenter;
 import ge.edu.geolab.gevents.presenter.impl.DetailsPresenterImpl;
+import ge.edu.geolab.gevents.ui.base.SlidingActivity;
 import ge.edu.geolab.gevents.ui.widgets.DateView;
+import ge.edu.geolab.gevents.utils.ViewUtils;
 import ge.edu.geolab.gevents.view.DetailsView;
 
-public class DetailsPageActivity extends AppCompatActivity implements OnMapReadyCallback, DetailsView {
+public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCallback, DetailsView {
 
     private MapFragment mapFragment;
 
@@ -55,8 +57,9 @@ public class DetailsPageActivity extends AppCompatActivity implements OnMapReady
 
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("");
 
         findViewById(R.id.back_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +71,7 @@ public class DetailsPageActivity extends AppCompatActivity implements OnMapReady
         mDetailsPresenter = new DetailsPresenterImpl(this);
         EventModel model = (EventModel) getIntent().getSerializableExtra(EventModel.KEY);
         mDetailsPresenter.setModel(model);
+        mDetailsPresenter.initDetails();
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -76,7 +80,7 @@ public class DetailsPageActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         googleMap.addMarker(new MarkerOptions().position(mLocation));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 12));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 14));
     }
 
     @Override

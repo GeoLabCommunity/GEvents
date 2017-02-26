@@ -37,10 +37,10 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
     }
 
     @Override
-    public void loadFeedEvents() {
+    public void loadFeedEvents(int page) {
         mView.showLoader();
 
-        mEventsInteractor.loadRecommended(1, new EventsInteractor.EventListCallback() {
+        mEventsInteractor.loadRecommended(page, new EventsInteractor.EventListCallback() {
 
             @Override
             public void onNothingFound() {

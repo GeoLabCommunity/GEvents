@@ -15,11 +15,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ge.edu.geolab.gevent.utils.DateUtils;
 import ge.edu.geolab.gevents.R;
 import ge.edu.geolab.gevents.event.EventBusProvider;
+import ge.edu.geolab.gevents.helper.AppFont;
+import ge.edu.geolab.gevents.helper.font.TypefaceHelper;
 import ge.edu.geolab.gevents.model.EventModel;
 import ge.edu.geolab.gevents.ui.widgets.DateView;
+import ge.edu.geolab.gevents.utils.DateUtils;
 
 /**
  * Created by Vazha on 08.02.2017.
@@ -84,6 +86,11 @@ public class EventsFeedAdapter extends RecyclerView.Adapter<EventsFeedAdapter.Ev
         EventViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            TypefaceHelper.override(titleView, AppFont.BPG_NINO_MTAVRULI_NORMAL);
+            TypefaceHelper.override(organizer, AppFont.BPG_NINO_MTAVRULI_NORMAL);
+            TypefaceHelper.overrideRootView(dateView.getContext(), dateView, AppFont.BPG_NINO_MTAVRULI_NORMAL);
+
             itemView.setOnClickListener(this);
         }
 

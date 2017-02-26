@@ -6,9 +6,13 @@ package ge.edu.geolab.gevents;
 
 public final class Config {
 
-    public interface API {
-        String BASE_URL = "http://mvc.geolab.edu.ge/";
-        String EVENTS_REQUEST_URL = BASE_URL + "api/contact";
+    public static abstract class API {
+        private static String BASE_URL = "http://mvc.geolab.edu.ge/";
+        private static String EVENTS_REQUEST_URL = BASE_URL + "api/allevents/";
+
+        public static String getEventsUrl(int page) {
+            return EVENTS_REQUEST_URL + page;
+        }
     }
 
     public static final int LOAD_ITEM_COUNT_DEFAULT = 10;

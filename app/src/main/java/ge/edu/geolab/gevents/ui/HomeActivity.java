@@ -3,6 +3,7 @@ package ge.edu.geolab.gevents.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -19,6 +20,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.List;
 
 import ge.edu.geolab.gevents.R;
+import ge.edu.geolab.gevents.adapter.EndlessRecyclerViewScrollListener;
 import ge.edu.geolab.gevents.adapter.EventsFeedAdapter;
 import ge.edu.geolab.gevents.event.EventBusProvider;
 import ge.edu.geolab.gevents.helper.AppFont;
@@ -29,6 +31,7 @@ import ge.edu.geolab.gevents.presenter.MainPresenter;
 import ge.edu.geolab.gevents.presenter.impl.MainPresenterImpl;
 import ge.edu.geolab.gevents.ui.base.SlidingActivity;
 import ge.edu.geolab.gevents.ui.fragment.DrawerActionListener;
+import ge.edu.geolab.gevents.ui.widgets.DividerItemDecoration;
 import ge.edu.geolab.gevents.view.MainView;
 
 public class HomeActivity extends SlidingActivity implements DrawerActionListener, MainView {
@@ -75,8 +78,17 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
         });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.events_feed_recycler);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addItemDecoration(
+                new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.line_divider), true, true));
         mRecyclerView.setAdapter(new EventsFeedAdapter(this));
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                mMainPresenter.loadFeedEvents(++page);
+            }
+        });
 
         initTypefaces();
         setTitle(R.string.app_name);
@@ -84,7 +96,7 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
         mMainPresenter = new MainPresenterImpl(this);
         mMainPresenter.onCreate();
 
-        mMainPresenter.loadFeedEvents();
+        mMainPresenter.loadFeedEvents(1);
     }
 
     private void initTypefaces() {
@@ -117,7 +129,7 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
 
     @Subscribe
     public void onEventSelected(EventModel event) {
-        final Intent intent = new Intent(this, DetailsPageActivity.class);
+        final Intent intent = new Intent(HomeActivity.this, DetailsPageActivity.class);
         intent.putExtra(EventModel.KEY, event);
         startActivity(intent);
     }
@@ -180,7 +192,7 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
 
     @Override
     public void setFeedItems(List<EventModel> items) {
-        getAdapter().setItems(items);
+        getAdapter().addItems(items);
     }
 
     @Override

@@ -61,7 +61,6 @@ public class DateView extends FrameLayout {
 
         mDayView = (TextView) findViewById(R.id.day);
         mMonthView = (TextView) findViewById(R.id.month);
-
     }
 
     private String getMonth(int month) {
@@ -82,14 +81,14 @@ public class DateView extends FrameLayout {
         mMonthView.setText(getMonth(month));
     }
 
-//    @Override
-//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//        int width = getMeasuredWidth();
-//        int height = getMeasuredHeight();
-//        if (width != height) {
-//            int dimension = Math.max(width, height);
-//            setMeasuredDimension(dimension, dimension);
-//        }
-//    }
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+        if (width != height) {
+            int dimension = Math.max(width, height);
+            setMeasuredDimension(dimension, dimension);
+        }
+    }
 }

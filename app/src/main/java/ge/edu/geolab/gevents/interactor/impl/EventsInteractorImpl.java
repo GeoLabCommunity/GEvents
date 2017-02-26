@@ -24,7 +24,7 @@ public class EventsInteractorImpl implements EventsInteractor {
         VolleyManager.getInstance().addEventRequest(
                 new GsonRequest<>(
                         Method.GET,
-                        Config.API.EVENTS_REQUEST_URL,
+                        Config.API.getEventsUrl(page),
                         EventModel[].class,
                         new Response.Listener<EventModel[]>() {
                             @Override

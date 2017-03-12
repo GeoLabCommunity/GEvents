@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_search"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="ge.edu.geolab.gevents.ui.SearchActivity">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/activity_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="ge.edu.geolab.gevents.ui.SearchActivity">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:background="?attr/colorPrimary"
         android:gravity="center_vertical">
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/search_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +30,10 @@
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textColorHint="#2dffffff"
-            android:textSize="16sp" />
+            android:textSize="16sp">
+
+            <requestFocus/>
+        </android.support.v7.widget.AppCompatEditText>
 
         <FrameLayout
             android:id="@+id/back_btn"
@@ -45,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_arrow_back"
-                tools:ignore="VectorDrawableCompat" />
+                tools:ignore="VectorDrawableCompat"/>
         </FrameLayout>
 
         <FrameLayout
@@ -62,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_clear_text"
-                tools:ignore="VectorDrawableCompat" />
+                tools:ignore="VectorDrawableCompat"/>
         </FrameLayout>
 
     </FrameLayout>

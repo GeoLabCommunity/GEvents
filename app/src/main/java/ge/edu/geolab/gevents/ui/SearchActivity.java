@@ -28,70 +28,61 @@ public class SearchActivity extends SlidingActivity {
     @BindView(R.id.back_btn)
     View mBackBtn;
 
-    private interface MyListener extends View.OnClickListener, TextWatcher, TextView.OnEditorActionListener {
-
-    }
-
-    private MyListener mListener = new MyListener() {
-        @Override
-        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                performSearch();
-                return true;
-            }
-            return false;
-        }
-
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            mClearTextBtn.setVisibility(TextUtils.isEmpty(s) ? View.INVISIBLE : View.VISIBLE);
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.back_btn:
-                    finish();
-                    break;
-                case R.id.clear_text_btn:
-                    mSearchInput.setText("");
-                    break;
-            }
-        }
-    };
-
-    private void performSearch() {
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
         ButterKnife.bind(this);
 
-        mBackBtn.setOnClickListener(mListener);
-        mClearTextBtn.setOnClickListener(mListener);
-        mSearchInput.addTextChangedListener(mListener);
-        mSearchInput.setOnEditorActionListener(mListener);
+        mBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        mClearTextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSearchInput.setText("");
+            }
+        });
+
+        mSearchInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                mClearTextBtn.setVisibility(TextUtils.isEmpty(charSequence) ? View.INVISIBLE : View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        mSearchInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    performSearch();
+                    return true;
+                }
+                return false;
+            }
+        });
         overrideTypefaces();
-
-
     }
 
     private void overrideTypefaces() {
-        TypefaceHelper.override(mSearchInput, AppFont.BPG_NINO_MTAVRULI_NORMAL);
+        TypefaceHelper.override(mSearchInput, AppFont.ARIAL);
+    }
+
+    private void performSearch() {
+
     }
 }

@@ -12,12 +12,13 @@ public enum AppFont implements IFont {
         public String getFileName() {
             return "bpg_nino_mtavruli_normal.ttf";
         }
+    },
+    ARIAL {
+        @Override
+        public String getFileName() {
+            return "arial.ttf";
+        }
     };
-
-    @Override
-    public IFont getDefault() {
-        return BPG_NINO_MTAVRULI_NORMAL;
-    }
 
     @Override
     public String getFilePath() {

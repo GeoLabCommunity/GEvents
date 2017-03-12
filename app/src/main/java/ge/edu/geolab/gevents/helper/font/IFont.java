@@ -8,6 +8,4 @@ public interface IFont {
     String getFileName();
 
     String getFilePath();
-
-    IFont getDefault();
 }

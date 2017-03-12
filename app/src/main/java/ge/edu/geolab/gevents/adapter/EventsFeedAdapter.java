@@ -1,6 +1,8 @@
 package ge.edu.geolab.gevents.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,13 +31,15 @@ import ge.edu.geolab.gevents.utils.DateUtils;
 
 public class EventsFeedAdapter extends RecyclerView.Adapter<EventsFeedAdapter.EventViewHolder> {
 
-    private LayoutInflater mLayoutInflater;
+    private final LayoutInflater mLayoutInflater;
     private List<EventModel> mItems = new ArrayList<>();
-    private Context mContext;
+    private final Context mContext;
+    private final Drawable mPlaceholder;
 
     public EventsFeedAdapter(Context context) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        mPlaceholder = AppCompatResources.getDrawable(mContext, R.drawable.placeholder);
     }
 
     public void setItems(List<EventModel> items) {
@@ -60,7 +64,8 @@ public class EventsFeedAdapter extends RecyclerView.Adapter<EventsFeedAdapter.Ev
         final EventModel model = mItems.get(position);
         Picasso.with(mContext)
                 .load(model.coverImgUrl)
-                .error(R.mipmap.ic_launcher)
+                .placeholder(mPlaceholder)
+                .error(mPlaceholder)
                 .into(holder.coverView);
         holder.titleView.setText(model.name);
         holder.organizer.setText(model.organizer);

@@ -1,7 +1,7 @@
 package ge.edu.geolab.gevents.ui;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,15 +18,18 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ge.edu.geolab.gevents.R;
+import ge.edu.geolab.gevents.helper.AppFont;
+import ge.edu.geolab.gevents.helper.font.TypefaceHelper;
 import ge.edu.geolab.gevents.model.EventModel;
 import ge.edu.geolab.gevents.presenter.DetailsPresenter;
 import ge.edu.geolab.gevents.presenter.impl.DetailsPresenterImpl;
 import ge.edu.geolab.gevents.ui.base.SlidingActivity;
 import ge.edu.geolab.gevents.ui.widgets.DateView;
-import ge.edu.geolab.gevents.utils.ViewUtils;
+import ge.edu.geolab.gevents.ui.widgets.MapActionView;
+import ge.edu.geolab.gevents.utils.MapUtils;
 import ge.edu.geolab.gevents.view.DetailsView;
 
-public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCallback, DetailsView {
+public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCallback, DetailsView, MapActionView.OnMapActionListener {
 
     private MapFragment mapFragment;
 
@@ -46,6 +49,10 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
     TextView mStartEndTimeView;
     @BindView(R.id.details_page_event_address)
     TextView mAddressView;
+    @BindView(R.id.top_panel)
+    View mTopDetailsPanel;
+    @BindView(R.id.map_action_view)
+    MapActionView mMapActionView;
 
     private DetailsPresenter mDetailsPresenter;
     private LatLng mLocation;
@@ -56,6 +63,7 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
         setContentView(R.layout.activity_details_page);
 
         ButterKnife.bind(this);
+        initTypefaces();
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,6 +76,8 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
             }
         });
 
+        mMapActionView.setMapActionListener(this);
+
         mDetailsPresenter = new DetailsPresenterImpl(this);
         EventModel model = (EventModel) getIntent().getSerializableExtra(EventModel.KEY);
         mDetailsPresenter.setModel(model);
@@ -75,6 +85,12 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
 
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    private void initTypefaces() {
+        TypefaceHelper.override(mTitleView, AppFont.ARIAL);
+        TypefaceHelper.override(mDescriptionView, AppFont.ARIAL);
+        TypefaceHelper.overrideRootView(this, mTopDetailsPanel, AppFont.BPG_NINO_MTAVRULI_NORMAL);
     }
 
     @Override
@@ -134,5 +150,20 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
 
     @Override
     public void setInterestedCount(int count) {
+    }
+
+    @Override
+    public void onNavigateOnMap() {
+        startActivity(MapUtils.navigate(this, mLocation.latitude, mLocation.longitude));
+    }
+
+    @Override
+    public void onShowOnMap() {
+        startActivity(MapUtils.showOnMap(this, mLocation.latitude, mLocation.longitude, ""));
+    }
+
+    @Override
+    protected void onStartNewActivity() {
+
     }
 }

@@ -84,8 +84,9 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
                 new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.line_divider), true, true));
         mRecyclerView.setAdapter(new EventsFeedAdapter(this));
         mRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
+
             @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+            public void onLoadMore(int page, int totalItemsCount) {
                 mMainPresenter.loadFeedEvents(++page);
             }
         });

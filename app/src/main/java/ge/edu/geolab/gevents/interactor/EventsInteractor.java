@@ -24,5 +24,6 @@ public interface EventsInteractor extends BaseInteractor {
 
     void loadDetails(int id, EventCallback listener);
 
-    void search(String keyword, EventListCallback listener);
+    void search(String keyword, int page, EventListCallback listener);
+
 }

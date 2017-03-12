@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#37000000"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:background="@drawable/map_action_btn_bg"
+        android:id="@+id/navigate_on_map_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_marginEnd="12dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_directions" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:background="@drawable/map_action_btn_bg"
+        android:id="@+id/show_on_map_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_map" />
+
+    </FrameLayout>
+
+</LinearLayout>

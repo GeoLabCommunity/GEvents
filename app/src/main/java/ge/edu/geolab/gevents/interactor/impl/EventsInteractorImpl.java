@@ -53,7 +53,25 @@ public class EventsInteractorImpl implements EventsInteractor {
     }
 
     @Override
-    public void search(String keyword, EventListCallback listener) {
-        // TODO: 04.02.17
+    public void search(String keyword, int page, final EventListCallback callback) {
+        VolleyManager.getInstance().addEventRequest(
+                new GsonRequest<>(
+                        Method.GET,
+                        Config.API.getSearchEventsUrl(keyword, page),
+                        EventModel[].class,
+                        new Response.Listener<EventModel[]>() {
+                            @Override
+                            public void onResponse(EventModel[] response) {
+                                callback.onLoaded(Arrays.asList(response));
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                callback.onLoadFailed();
+                            }
+                        }
+                )
+        );
     }
 }

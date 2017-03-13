@@ -1,8 +1,11 @@
 package ge.edu.geolab.gevents.utils;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import static android.text.TextUtils.isEmpty;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -12,16 +15,29 @@ import java.net.URLEncoder;
  */
 
 public class MapUtils {
-    public static Intent navigate(final Context context, final double lat, final double lng) {
-        return new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + lat + "," + lng));
+
+    public static class LocationHolder {
+        public LatLng latLng;
+        public String address;
     }
 
-    public static Intent showOnMap(final Context context, final double lat, final double lng, final String label) {
+    public static Intent navigateIntent(final LocationHolder location) {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" +
+                buildQuery(location.latLng.latitude, location.latLng.longitude, location.address)));
+    }
+
+    public static Intent showOnMapIntent(final LocationHolder location) {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" +
+                buildQuery(location.latLng.latitude, location.latLng.longitude, location.address)));
+    }
+
+    private static String buildQuery(final double lat, final double lng, final String query) {
+        String encodedQuery = "";
         try {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + lat + "," + lng + "(" + URLEncoder.encode(label, "UTF-8") + ")"));
+            encodedQuery = URLEncoder.encode(query, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return null;
+        return isEmpty(query) ? lat + "," + lng + "()" : encodedQuery;
     }
 }

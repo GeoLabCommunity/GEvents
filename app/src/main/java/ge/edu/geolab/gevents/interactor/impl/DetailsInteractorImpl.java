@@ -36,13 +36,11 @@ public class DetailsInteractorImpl implements DetailsInteractor {
 
     @Override
     public String getEventAddress(EventModel model) {
-        return new StringBuilder()
-                .append(model.place.city)
-                .append(", ")
-                .append(model.place.street)
-                .append(", ")
-                .append(model.place.name)
-                .toString();
+        return checkNull(model.place.city) +
+                " , " +
+                checkNull(model.place.street) +
+                " , " +
+                checkNull(model.place.name);
     }
 
     @Override
@@ -76,5 +74,9 @@ public class DetailsInteractorImpl implements DetailsInteractor {
 
     private String getTime(long time) {
         return new SimpleDateFormat("HH:mm").format(new Date(time));
+    }
+
+    private String checkNull(String value) {
+        return value == null ? "" : value;
     }
 }

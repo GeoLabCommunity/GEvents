@@ -15,9 +15,9 @@ import butterknife.ButterKnife;
 import ge.edu.geolab.gevents.R;
 import ge.edu.geolab.gevents.helper.AppFont;
 import ge.edu.geolab.gevents.helper.font.TypefaceHelper;
-import ge.edu.geolab.gevents.ui.base.SlidingActivity;
+import ge.edu.geolab.gevents.ui.base.BaseActivity;
 
-public class SearchActivity extends SlidingActivity {
+public class SearchActivity extends BaseActivity {
 
     @BindView(R.id.search_input)
     AppCompatEditText mSearchInput;

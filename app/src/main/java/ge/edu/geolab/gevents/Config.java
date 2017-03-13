@@ -23,5 +23,3 @@ public final class Config {
 
     public static final int LOAD_ITEM_COUNT_DEFAULT = 10;
 }
-//api/search/page/searchword
-

@@ -9,10 +9,10 @@ import ge.edu.geolab.gevents.view.base.BaseView;
  * Created by Vazha on 28.02.2017.
  */
 
-public interface SearchView extends BaseView{
-
+public interface SearchView extends BaseView {
     void setResult(List<EventModel> result);
-    void showLoader();
-    void hideLoader();
 
+    void showLoader();
+
+    void hideLoader();
 }

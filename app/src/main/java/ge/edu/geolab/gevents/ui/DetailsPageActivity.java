@@ -1,6 +1,5 @@
 package ge.edu.geolab.gevents.ui;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
@@ -23,13 +22,14 @@ import ge.edu.geolab.gevents.helper.font.TypefaceHelper;
 import ge.edu.geolab.gevents.model.EventModel;
 import ge.edu.geolab.gevents.presenter.DetailsPresenter;
 import ge.edu.geolab.gevents.presenter.impl.DetailsPresenterImpl;
+import ge.edu.geolab.gevents.ui.base.BaseActivity;
 import ge.edu.geolab.gevents.ui.base.SlidingActivity;
 import ge.edu.geolab.gevents.ui.widgets.DateView;
 import ge.edu.geolab.gevents.ui.widgets.MapActionView;
 import ge.edu.geolab.gevents.utils.MapUtils;
 import ge.edu.geolab.gevents.view.DetailsView;
 
-public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCallback, DetailsView, MapActionView.OnMapActionListener {
+public class DetailsPageActivity extends BaseActivity implements OnMapReadyCallback, DetailsView, MapActionView.OnMapActionListener {
 
     private MapFragment mapFragment;
 
@@ -55,7 +55,7 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
     MapActionView mMapActionView;
 
     private DetailsPresenter mDetailsPresenter;
-    private LatLng mLocation;
+    private MapUtils.LocationHolder mLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
         });
 
         mMapActionView.setMapActionListener(this);
-
+        mLocation = new MapUtils.LocationHolder();
         mDetailsPresenter = new DetailsPresenterImpl(this);
         EventModel model = (EventModel) getIntent().getSerializableExtra(EventModel.KEY);
         mDetailsPresenter.setModel(model);
@@ -95,8 +95,8 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions().position(mLocation));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 14));
+        googleMap.addMarker(new MarkerOptions().position(mLocation.latLng));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation.latLng, 14));
     }
 
     @Override
@@ -120,11 +120,12 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
 
     @Override
     public void setLocation(LatLng latLng) {
-        mLocation = latLng;
+        mLocation.latLng = latLng;
     }
 
     @Override
     public void setEventAddress(String address) {
+        mLocation.address = address;
         mAddressView.setText(address);
     }
 
@@ -154,12 +155,12 @@ public class DetailsPageActivity extends SlidingActivity implements OnMapReadyCa
 
     @Override
     public void onNavigateOnMap() {
-        startActivity(MapUtils.navigate(this, mLocation.latitude, mLocation.longitude));
+        startActivity(MapUtils.navigateIntent(mLocation));
     }
 
     @Override
     public void onShowOnMap() {
-        startActivity(MapUtils.showOnMap(this, mLocation.latitude, mLocation.longitude, ""));
+        startActivity(MapUtils.showOnMapIntent(mLocation));
     }
 
     @Override

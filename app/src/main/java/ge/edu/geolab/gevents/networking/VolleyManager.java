@@ -2,8 +2,10 @@ package ge.edu.geolab.gevents.networking;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.RetryPolicy;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
@@ -14,12 +16,18 @@ import com.android.volley.toolbox.Volley;
 public class VolleyManager {
 
     private static final String TAG_EVENTS_REQUEST = "events_request";
-    private static final RequestQueue.RequestFilter CANCEL_ALL_FILTER = new RequestQueue.RequestFilter() {
+    private final RequestQueue.RequestFilter CANCEL_ALL_FILTER = new RequestQueue.RequestFilter() {
         @Override
         public boolean apply(Request<?> request) {
             return true;
         }
     };
+
+    private final RetryPolicy POLICY = new DefaultRetryPolicy(
+            15000,
+            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+    );
 
     private static VolleyManager sInstance;
 
@@ -44,7 +52,7 @@ public class VolleyManager {
 
     public void addEventRequest(Request request) {
         mRequestQueue.cancelAll(TAG_EVENTS_REQUEST);
-        mRequestQueue.add(request.setTag(TAG_EVENTS_REQUEST));
+        mRequestQueue.add(request.setTag(TAG_EVENTS_REQUEST).setRetryPolicy(POLICY));
     }
 
     public void cancelAllRequests() {

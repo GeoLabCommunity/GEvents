@@ -38,7 +38,9 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
 
     @Override
     public void loadFeedEvents(int page) {
-        mView.showLoader();
+        if (page == 1) {
+            mView.showLoader();
+        }
 
         mEventsInteractor.loadRecommended(page, new EventsInteractor.EventListCallback() {
 

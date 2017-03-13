@@ -1,7 +1,6 @@
 package ge.edu.geolab.gevents.utils;
 
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**

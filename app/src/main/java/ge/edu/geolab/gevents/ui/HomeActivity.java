@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -29,12 +30,13 @@ import ge.edu.geolab.gevents.model.EventCategory;
 import ge.edu.geolab.gevents.model.EventModel;
 import ge.edu.geolab.gevents.presenter.MainPresenter;
 import ge.edu.geolab.gevents.presenter.impl.MainPresenterImpl;
+import ge.edu.geolab.gevents.ui.base.BaseActivity;
 import ge.edu.geolab.gevents.ui.base.SlidingActivity;
 import ge.edu.geolab.gevents.ui.fragment.DrawerActionListener;
 import ge.edu.geolab.gevents.ui.widgets.DividerItemDecoration;
 import ge.edu.geolab.gevents.view.MainView;
 
-public class HomeActivity extends SlidingActivity implements DrawerActionListener, MainView {
+public class HomeActivity extends BaseActivity implements DrawerActionListener, MainView {
 
     private DrawerLayout mLeftDrawer;
     private MainPresenter mMainPresenter;
@@ -81,7 +83,7 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(
-                new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.line_divider), true, true));
+                new DividerItemDecoration(AppCompatResources.getDrawable(this, R.drawable.line_divider), true, true));
         mRecyclerView.setAdapter(new EventsFeedAdapter(this));
         mRecyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager) {
 
@@ -96,7 +98,6 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
 
         mMainPresenter = new MainPresenterImpl(this);
         mMainPresenter.onCreate();
-
         mMainPresenter.loadFeedEvents(1);
     }
 
@@ -126,25 +127,6 @@ public class HomeActivity extends SlidingActivity implements DrawerActionListene
     protected void onDestroy() {
         mMainPresenter.onDestroy();
         super.onDestroy();
-    }
-
-    @Subscribe
-    public void onEventSelected(EventModel event) {
-        final Intent intent = new Intent(HomeActivity.this, DetailsPageActivity.class);
-        intent.putExtra(EventModel.KEY, event);
-        startActivity(intent);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        EventBusProvider.getInstance().unregister(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        EventBusProvider.getInstance().register(this);
     }
 
     @Override

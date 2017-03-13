@@ -5,7 +5,4 @@ package ge.edu.geolab.gevents.presenter.base;
  */
 
 public abstract class BasePresenter {
-
-
-
 }

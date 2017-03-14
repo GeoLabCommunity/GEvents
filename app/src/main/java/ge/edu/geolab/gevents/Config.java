@@ -8,8 +8,8 @@ public final class Config {
 
     public static abstract class API {
         private static String BASE_URL = "http://mvc.geolab.edu.ge/";
-        private static String EVENTS_REQUEST_URL = BASE_URL + "api/allevents/";
-        private static String SEARCH_EVENTS_REQUEST_URL = BASE_URL + "api/search/";
+        private static String EVENTS_REQUEST_URL = BASE_URL + "api/filters/0/";
+        private static String SEARCH_EVENTS_REQUEST_URL = BASE_URL + "api/Search/a/";
 
         public static String getEventsUrl(int page) {
             return EVENTS_REQUEST_URL + page;

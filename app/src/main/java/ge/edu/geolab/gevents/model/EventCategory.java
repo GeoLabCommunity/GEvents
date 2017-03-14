@@ -9,8 +9,10 @@ import ge.edu.geolab.gevents.model.base.IEventCategory;
  */
 
 public enum EventCategory implements IEventCategory {
-    HAPPENING_NOW(0, "დღეს", R.mipmap.ic_launcher),
-    ALL_EVENTS(1, "ყველა", R.mipmap.ic_launcher);
+    ALL_EVENTS(0, "ყველა", R.drawable.ic_select_all),
+    HAPPENING_NOW(1, "დღეს", R.drawable.ic_today),
+    POPULAR(2, "ტოპ", R.drawable.ic_popular),
+    NEARBY(3, "ახლოს", R.drawable.ic_nearby);
 
     EventCategory(int id, String name, int icon) {
         this.id = id;

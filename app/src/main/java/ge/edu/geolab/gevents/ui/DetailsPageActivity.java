@@ -91,9 +91,9 @@ public class DetailsPageActivity extends BaseActivity implements OnMapReadyCallb
 
     private void initTypefaces() {
         TypefaceHelper.override(this, mTitleView, AppFont.BPG_NINO_MTAVRULI_NORMAL);
-        TypefaceHelper.overrideRootView(this, mTopDetailsPanel, AppFont.BPG_NINO_MTAVRULI_NORMAL);
+        TypefaceHelper.overrideRootView(this, mTopDetailsPanel, AppFont.DEJAVU_SANS_EXTRA_LIGHT);
 
-        TypefaceHelper.override(this, mDescriptionView, AppFont.BPG_ALGETI);
+        TypefaceHelper.override(this, mDescriptionView, AppFont.DEJAVU_SANS_EXTRA_LIGHT);
         TypefaceHelper.override(this, mAddressView, AppFont.BPG_ALGETI);
     }
 

@@ -124,6 +124,8 @@
                     android:textSize="12sp"/>
 
                 <TextView
+                    android:drawableStart="@drawable/ic_people_attending"
+                    android:drawablePadding="5dp"
                     android:id="@+id/details_page_attending_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

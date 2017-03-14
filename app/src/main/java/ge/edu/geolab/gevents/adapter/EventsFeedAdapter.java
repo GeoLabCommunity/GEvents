@@ -60,8 +60,8 @@ public class EventsFeedAdapter extends BaseRecyclerAdapter<EventModel> {
     @Override
     protected void onViewHolderCreated(ViewHolder holder) {
         TypefaceHelper.override(holder.getView(R.id.event_title), AppFont.BPG_NINO_MTAVRULI_NORMAL);
-        TypefaceHelper.override(holder.getView(R.id.event_organizer_title), AppFont.BPG_NINO_MTAVRULI_NORMAL);
-        TypefaceHelper.override(holder.getView(R.id.event_date_view), AppFont.BPG_NINO_MTAVRULI_NORMAL);
+        TypefaceHelper.override(holder.getView(R.id.event_organizer_title), AppFont.BPG_NINO_MKHEDRULI_NORMAL);
+        TypefaceHelper.overrideRootView(holder.getItemView().getContext(), holder.getView(R.id.event_date_view), AppFont.BPG_NINO_MTAVRULI_NORMAL);
     }
 
     @Override

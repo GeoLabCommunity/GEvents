@@ -1,5 +1,7 @@
 package ge.edu.geolab.gevents;
 
+import android.net.Uri;
+
 import ge.edu.geolab.gevents.model.base.IEventCategory;
 
 /**
@@ -18,7 +20,7 @@ public final class Config {
         }
 
         public static String getSearchEventsUrl(String keyWord, int page) {
-            return SEARCH_EVENTS_REQUEST_URL + keyWord + "/" + page;
+            return SEARCH_EVENTS_REQUEST_URL + Uri.encode(keyWord) + "/" + page;
         }
     }
 

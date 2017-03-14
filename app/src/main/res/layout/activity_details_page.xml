@@ -30,6 +30,8 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
+                app:contentInsetLeft="2dp"
+                app:contentInsetStart="2dp"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:background="@android:color/transparent"
@@ -107,6 +109,8 @@
                 </FrameLayout>
 
                 <TextView
+                    android:drawableStart="@drawable/ic_start_time"
+                    android:drawablePadding="5dp"
                     android:id="@+id/details_page_start_end_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -143,6 +147,8 @@
                     android:textSize="12sp"/>
 
                 <TextView
+                    android:drawableStart="@drawable/ic_location"
+                    android:drawablePadding="5dp"
                     android:id="@+id/details_page_event_organizer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

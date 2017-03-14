@@ -37,4 +37,12 @@ public class LoaderView extends FrameLayout {
     private void init() {
         inflate(getContext(), R.layout.loader_view, this);
     }
+
+    public void show() {
+        setVisibility(VISIBLE);
+    }
+
+    public void hide() {
+        setVisibility(INVISIBLE);
+    }
 }

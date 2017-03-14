@@ -12,4 +12,6 @@ public interface IEventCategory {
     String getName();
 
     int getIconResId();
+
+    boolean isNotImplemented();
 }

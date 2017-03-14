@@ -8,6 +8,7 @@ import java.util.Arrays;
 import ge.edu.geolab.gevents.Config;
 import ge.edu.geolab.gevents.interactor.EventsInteractor;
 import ge.edu.geolab.gevents.model.EventModel;
+import ge.edu.geolab.gevents.model.base.IEventCategory;
 import ge.edu.geolab.gevents.networking.VolleyManager;
 import ge.edu.geolab.gevents.requests.GsonRequest;
 
@@ -20,11 +21,11 @@ import static com.android.volley.Request.Method;
 public class EventsInteractorImpl implements EventsInteractor {
 
     @Override
-    public void loadRecommended(int page, final EventListCallback callback) {
+    public void loadByCategory(IEventCategory category, int page, final EventListCallback callback) {
         VolleyManager.getInstance().addEventRequest(
                 new GsonRequest<>(
                         Method.GET,
-                        Config.API.getEventsUrl(page),
+                        Config.API.getEventsUrl(category, page),
                         EventModel[].class,
                         new Response.Listener<EventModel[]>() {
                             @Override
@@ -40,11 +41,6 @@ public class EventsInteractorImpl implements EventsInteractor {
                         }
                 )
         );
-    }
-
-    @Override
-    public void loadByCategory(int catId, int page, EventListCallback listener) {
-        // TODO: 06.02.17
     }
 
     @Override

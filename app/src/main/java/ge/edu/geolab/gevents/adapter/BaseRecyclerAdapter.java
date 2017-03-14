@@ -33,6 +33,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     protected abstract void onItemClick(T item, int position);
 
+    protected void onViewHolderCreated(ViewHolder holder){
+
+    }
+
     public BaseRecyclerAdapter(Context context) {
         super();
         this.context = context;
@@ -41,7 +45,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        return new ViewHolder(createView(mLayoutInflater, viewGroup, viewType), mListener);
+        final ViewHolder holder = new ViewHolder(
+                createView(mLayoutInflater, viewGroup, viewType), mListener);
+        onViewHolderCreated(holder);
+        return holder;
     }
 
     @Override
@@ -65,6 +72,11 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter {
 
     public void addItems(List<T> items) {
         mItems.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        mItems.clear();
         notifyDataSetChanged();
     }
 

@@ -156,6 +156,7 @@ public class CategoryListFragment extends ListFragment implements DrawerView {
         });
 
         setListAdapter(adapter);
+        getListView().setItemChecked(0, true);
     }
 
     @Override

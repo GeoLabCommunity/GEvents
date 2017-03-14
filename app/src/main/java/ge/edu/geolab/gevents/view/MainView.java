@@ -15,5 +15,7 @@ public interface MainView extends BaseView, ContextView {
 
     void hideLoader();
 
-    void setFeedItems(List<EventModel> items);
+    void addFeedItems(List<EventModel> items);
+
+    void setSubtitle(String subtitle);
 }

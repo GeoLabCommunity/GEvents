@@ -1,6 +1,9 @@
 package ge.edu.geolab.gevents.model;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 import ge.edu.geolab.gevents.R;
 import ge.edu.geolab.gevents.model.base.IEventCategory;
 
@@ -46,5 +49,21 @@ public enum EventCategory implements IEventCategory {
             }
         }
         return "";
+    }
+
+    public static IEventCategory fromId(int id) {
+        for (EventCategory cat : values()) {
+            if (cat.id == id) {
+                return cat;
+            }
+        }
+        return ALL_EVENTS;
+    }
+
+    private static List<EventCategory> NOT_IMPLEMENTED_CAT = Arrays.asList(NEARBY);
+
+    @Override
+    public boolean isNotImplemented() {
+        return NOT_IMPLEMENTED_CAT.contains(this);
     }
 }

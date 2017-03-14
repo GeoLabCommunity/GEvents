@@ -6,6 +6,7 @@ import java.util.List;
 import ge.edu.geolab.gevents.interactor.EventsInteractor;
 import ge.edu.geolab.gevents.interactor.impl.EventsInteractorImpl;
 import ge.edu.geolab.gevents.model.EventModel;
+import ge.edu.geolab.gevents.model.base.IEventCategory;
 import ge.edu.geolab.gevents.networking.VolleyManager;
 import ge.edu.geolab.gevents.presenter.MainPresenter;
 import ge.edu.geolab.gevents.presenter.base.BasePresenter;
@@ -19,6 +20,7 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
 
     private MainView mView;
     private EventsInteractor mEventsInteractor;
+    private IEventCategory mCurrentCategory;
 
     public MainPresenterImpl(MainView view) {
         mView = view;
@@ -42,13 +44,13 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
             mView.showLoader();
         }
 
-        mEventsInteractor.loadRecommended(page, new EventsInteractor.EventListCallback() {
+        mEventsInteractor.loadByCategory(mCurrentCategory, page, new EventsInteractor.EventListCallback() {
 
             @Override
             public void onNothingFound() {
                 if (mView != null) {
                     mView.hideLoader();
-                    mView.setFeedItems(Collections.<EventModel>emptyList());
+                    mView.addFeedItems(Collections.<EventModel>emptyList());
                 }
             }
 
@@ -56,7 +58,7 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
             public void onLoaded(List<EventModel> data) {
                 if (mView != null) {
                     mView.hideLoader();
-                    mView.setFeedItems(data);
+                    mView.addFeedItems(data);
                 }
             }
 
@@ -67,5 +69,11 @@ public class MainPresenterImpl extends BasePresenter implements MainPresenter {
                 }
             }
         });
+    }
+
+    @Override
+    public void setCategory(IEventCategory category) {
+        mCurrentCategory = category;
+        mView.setSubtitle(category.getName());
     }
 }

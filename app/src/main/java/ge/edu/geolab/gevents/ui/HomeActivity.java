@@ -3,7 +3,6 @@ package ge.edu.geolab.gevents.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -15,23 +14,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
-
-import org.greenrobot.eventbus.Subscribe;
+import android.widget.Toast;
 
 import java.util.List;
 
 import ge.edu.geolab.gevents.R;
 import ge.edu.geolab.gevents.adapter.EndlessRecyclerViewScrollListener;
 import ge.edu.geolab.gevents.adapter.EventsFeedAdapter;
-import ge.edu.geolab.gevents.event.EventBusProvider;
 import ge.edu.geolab.gevents.helper.AppFont;
 import ge.edu.geolab.gevents.helper.font.TypefaceHelper;
 import ge.edu.geolab.gevents.model.EventCategory;
 import ge.edu.geolab.gevents.model.EventModel;
+import ge.edu.geolab.gevents.model.base.IEventCategory;
 import ge.edu.geolab.gevents.presenter.MainPresenter;
 import ge.edu.geolab.gevents.presenter.impl.MainPresenterImpl;
 import ge.edu.geolab.gevents.ui.base.BaseActivity;
-import ge.edu.geolab.gevents.ui.base.SlidingActivity;
 import ge.edu.geolab.gevents.ui.fragment.DrawerActionListener;
 import ge.edu.geolab.gevents.ui.widgets.DividerItemDecoration;
 import ge.edu.geolab.gevents.view.MainView;
@@ -98,6 +95,8 @@ public class HomeActivity extends BaseActivity implements DrawerActionListener, 
 
         mMainPresenter = new MainPresenterImpl(this);
         mMainPresenter.onCreate();
+
+        mMainPresenter.setCategory(EventCategory.ALL_EVENTS);
         mMainPresenter.loadFeedEvents(1);
     }
 
@@ -116,11 +115,6 @@ public class HomeActivity extends BaseActivity implements DrawerActionListener, 
     public void setTitle(CharSequence title) {
         final TextView titleView = (TextView) findViewById(R.id.title);
         titleView.setText(title);
-    }
-
-    public void setSubtitle(CharSequence title) {
-        final TextView subTitleView = (TextView) findViewById(R.id.sub_title);
-        subTitleView.setText(title);
     }
 
     @Override
@@ -151,7 +145,16 @@ public class HomeActivity extends BaseActivity implements DrawerActionListener, 
     @Override
     public void onDrawerItemSelected(int id) {
         closeDrawer();
-        setSubtitle(EventCategory.getNameFromId(id));
+        final IEventCategory category = EventCategory.fromId(id);
+        if (category.isNotImplemented()) {
+            Toast.makeText(this, R.string.comming_soon, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        clearAdapter();
+
+        mMainPresenter.setCategory(category);
+        mMainPresenter.loadFeedEvents(1);
     }
 
     private EventsFeedAdapter getAdapter() {
@@ -174,8 +177,18 @@ public class HomeActivity extends BaseActivity implements DrawerActionListener, 
     }
 
     @Override
-    public void setFeedItems(List<EventModel> items) {
+    public void addFeedItems(List<EventModel> items) {
         getAdapter().addItems(items);
+    }
+
+    @Override
+    public void setSubtitle(String subtitle) {
+        final TextView subTitleView = (TextView) findViewById(R.id.sub_title);
+        subTitleView.setText(subtitle);
+    }
+
+    private void clearAdapter() {
+        getAdapter().clear();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package ge.edu.geolab.gevents.ui;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -101,10 +103,11 @@ public class DetailsPageActivity extends BaseActivity implements OnMapReadyCallb
 
     @Override
     public void setCoverImage(String url) {
+        final Drawable holder = AppCompatResources.getDrawable(this, R.drawable.placeholder);
         Picasso.with(this)
                 .load(url)
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
+                .placeholder(holder)
+                .error(holder)
                 .into(mCoverImageView);
     }
 
